@@ -10,7 +10,9 @@ Welcome to adlinkusb's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   usb7250.md
+   usb7250
+   api
+
 
 
 Indices and tables
