@@ -8,8 +8,6 @@ Supported devices:
 
 ## USB DAQ 7250
 
-The 7250 has:
-
 * 8-CH relay output
 * 8-CH digital inputs
 * 2-CH counter
