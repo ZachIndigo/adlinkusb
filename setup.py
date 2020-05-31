@@ -12,7 +12,7 @@ setup(
     description='Adlink USB DAQ driver',
     author='Alexander Couzens',
     author_email='lynxis@fe80.eu',
-    url='https://pyusb.github.io/pyusb',
+    url='https://github.com/lynxis/adlinkusb',
     packages=['adlinkusb'],
     long_description=
 """
