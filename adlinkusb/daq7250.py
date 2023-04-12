@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 #
+# Copyright 2023 Zachary Smith (minor changes for macOS)
 # Copyright 2020 Alexander Couzens <lynxis@fe80.eu>
 # License: MIT
 
 import struct
 
 import usb.core
+import usb.backend.libusb1
 from usb.util import endpoint_address, endpoint_direction, ENDPOINT_IN, ENDPOINT_OUT, build_request_type, CTRL_TYPE_VENDOR, CTRL_RECIPIENT_DEVICE, CTRL_OUT, CTRL_IN
+
+backend = usb.backend.libusb1.get_backend(find_library=lambda x: "/opt/homebrew/Cellar/libusb/1.0.26/lib/libusb-1.0.0.dylib")
 
 # in ms
 TIMEOUT = 10
@@ -39,7 +43,7 @@ class DAQ7250():
         self.irq_timeout = None
 
     def _search_by_deviceid(self, deviceid):
-        for dev in usb.core.find(idVendor=0x144a, idProduct=0x7250, find_all=True):
+        for dev in usb.core.find(idVendor=0x144a, idProduct=0x7250, find_all=True, backend=backend):
             # this is a bit hacky, setting self.dev to use self.get_device_id
             self.dev = dev
 
@@ -59,7 +63,7 @@ class DAQ7250():
                 dev = self._search_by_deviceid(deviceid)
             else:
                 # use the first device
-                dev = usb.core.find(idVendor=0x144a, idProduct=0x7250)
+                dev = usb.core.find(idVendor=0x144a, idProduct=0x7250, backend=backend)
 
             if dev is None:
                 raise ValueError('Device not found')
